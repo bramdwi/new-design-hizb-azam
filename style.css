@@ -718,6 +718,24 @@ body.reader-mode #back-btn {
     color: rgba(255,255,255,0.25);
 }
 
+.retry-btn {
+    margin-top: 8px;
+    padding: 10px 28px;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+    color: var(--cream);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.retry-btn:active {
+    transform: scale(0.95);
+    box-shadow: var(--shadow-md);
+}
+
 /* ==========================================
    BOTTOM NAVIGATION
    ========================================== */

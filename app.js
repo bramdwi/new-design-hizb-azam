@@ -154,6 +154,41 @@ function showEmptyReader() {
     `;
 }
 
+// --- PDF Download with retry ---
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 800;
+
+// Cache downloaded PDFs in memory to avoid re-downloading
+const pdfDataCache = new Map();
+
+async function fetchPDFData(pdfFile) {
+    // Return cached data if available
+    if (pdfDataCache.has(pdfFile)) {
+        return pdfDataCache.get(pdfFile);
+    }
+
+    const response = await fetch(pdfFile);
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    // Read entire file as ArrayBuffer
+    const arrayBuffer = await response.arrayBuffer();
+
+    if (!arrayBuffer || arrayBuffer.byteLength === 0) {
+        throw new Error('File kosong atau tidak valid');
+    }
+
+    // Cache for future use
+    pdfDataCache.set(pdfFile, arrayBuffer.slice(0));
+    return arrayBuffer;
+}
+
+function updateLoadingText(text) {
+    const loadingP = readerLoading.querySelector('p');
+    if (loadingP) loadingP.textContent = text;
+}
+
 // --- PDF Rendering ---
 async function openPDF(pdfFile, pdfName, targetPage = 1) {
     if (isRendering) return;
@@ -172,55 +207,92 @@ async function openPDF(pdfFile, pdfName, targetPage = 1) {
     pdfContainer.innerHTML = '';
     readerLoading.classList.remove('hidden');
     pageIndicator.classList.add('hidden');
+    updateLoadingText('Mengunduh file...');
     
-    try {
-        // Init PDF.js
-        const pdfjs = await initPDFJS();
-        if (!pdfjs) throw new Error('PDF.js not available');
-        
-        // Load PDF
-        const loadingTask = pdfjs.getDocument(pdfFile);
-        const pdf = await loadingTask.promise;
-        currentPdf = pdf;
-        totalPages = pdf.numPages;
-        
-        // Hide loading
-        readerLoading.classList.add('hidden');
-        
-        // Render all pages
-        for (let i = 1; i <= totalPages; i++) {
-            await renderPage(pdf, i);
+    let lastError = null;
+    
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            // Init PDF.js
+            const pdfjs = await initPDFJS();
+            if (!pdfjs) throw new Error('PDF.js tidak tersedia');
+            
+            // Step 1: Download full PDF as ArrayBuffer
+            if (attempt > 1) {
+                updateLoadingText(`Mencoba lagi (${attempt}/${MAX_RETRIES})...`);
+                // Clear cache on retry in case partial data was cached
+                pdfDataCache.delete(pdfFile);
+            }
+            
+            const pdfData = await fetchPDFData(pdfFile);
+            
+            // Step 2: Pass ArrayBuffer to PDF.js (no network request needed)
+            updateLoadingText('Memproses halaman...');
+            const loadingTask = pdfjs.getDocument({ data: pdfData.slice(0) });
+            const pdf = await loadingTask.promise;
+            currentPdf = pdf;
+            totalPages = pdf.numPages;
+            
+            // Hide loading
+            readerLoading.classList.add('hidden');
+            
+            // Render all pages
+            for (let i = 1; i <= totalPages; i++) {
+                updateLoadingText(`Merender halaman ${i}/${totalPages}...`);
+                await renderPage(pdf, i);
+            }
+            
+            // Show page indicator
+            currentPage = targetPage;
+            updatePageIndicator();
+            
+            // Scroll to target page
+            if (targetPage > 1) {
+                scrollToPage(targetPage);
+            }
+            
+            // Save reading position
+            saveReadingPosition(pdfFile, pdfName, targetPage);
+            
+            // Setup scroll tracking
+            setupScrollTracking();
+            
+            // Success — exit retry loop
+            isRendering = false;
+            return;
+            
+        } catch (err) {
+            console.warn(`PDF load attempt ${attempt}/${MAX_RETRIES} failed:`, err.message);
+            lastError = err;
+            
+            if (attempt < MAX_RETRIES) {
+                // Wait before retrying
+                await new Promise(r => setTimeout(r, RETRY_DELAY_MS * attempt));
+            }
         }
-        
-        // Show page indicator
-        currentPage = targetPage;
-        updatePageIndicator();
-        
-        // Scroll to target page
-        if (targetPage > 1) {
-            scrollToPage(targetPage);
-        }
-        
-        // Save reading position
-        saveReadingPosition(pdfFile, pdfName, targetPage);
-        
-        // Setup scroll tracking
-        setupScrollTracking();
-        
-    } catch (err) {
-        console.error('Error loading PDF:', err);
-        readerLoading.classList.add('hidden');
-        pdfContainer.innerHTML = `
-            <div class="reader-empty">
-                <div class="reader-empty-icon">⚠️</div>
-                <p class="reader-empty-text">Gagal memuat PDF</p>
-                <p class="reader-empty-hint">${err.message}</p>
-            </div>
-        `;
-    } finally {
-        isRendering = false;
     }
+    
+    // All retries failed
+    console.error('All PDF load attempts failed:', lastError);
+    readerLoading.classList.add('hidden');
+    pdfContainer.innerHTML = `
+        <div class="reader-empty">
+            <div class="reader-empty-icon">⚠️</div>
+            <p class="reader-empty-text">Gagal memuat PDF</p>
+            <p class="reader-empty-hint">${lastError.message}</p>
+            <button class="retry-btn" onclick="retryOpenPDF('${pdfFile}', '${pdfName.replace(/'/g, "\\'")}', ${targetPage})">
+                Coba Lagi
+            </button>
+        </div>
+    `;
+    isRendering = false;
 }
+
+// Global retry function (called from inline onclick)
+window.retryOpenPDF = function(pdfFile, pdfName, targetPage) {
+    pdfDataCache.delete(pdfFile); // clear any bad cache
+    openPDF(pdfFile, pdfName, targetPage);
+};
 
 async function renderPage(pdf, pageNum) {
     const page = await pdf.getPage(pageNum);
