@@ -2,22 +2,22 @@
    PWA Hizb Al-A'zham — Application Logic
    ============================================ */
 
-// --- PDF.js Setup ---
-const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136';
+// --- PDF.js Setup (Local for 100% Offline) ---
+const PDFJS_PATH = './lib/pdf.min.mjs';
+const PDFJS_WORKER_PATH = './lib/pdf.worker.min.mjs';
 
-// We need to dynamically import pdf.js as ES module
 let pdfjsLib = null;
 
 async function initPDFJS() {
     if (pdfjsLib) return pdfjsLib;
     
     try {
-        const module = await import(`${PDFJS_CDN}/pdf.min.mjs`);
+        const module = await import(PDFJS_PATH);
         pdfjsLib = module;
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.mjs`;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_PATH;
         return pdfjsLib;
     } catch (e) {
-        console.error('Failed to load PDF.js:', e);
+        console.error('Failed to load local PDF.js:', e);
         return null;
     }
 }

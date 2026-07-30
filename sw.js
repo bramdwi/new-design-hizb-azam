@@ -1,9 +1,9 @@
 /* ============================================
    Service Worker — Hizb Al-A'zham PWA
-   Cache-first strategy for offline reading
+   Cache-first strategy for 100% offline reading
    ============================================ */
 
-const CACHE_NAME = 'hizb-azam-v1';
+const CACHE_NAME = 'hizb-azam-v2';
 
 const PRECACHE_URLS = [
     './',
@@ -12,6 +12,8 @@ const PRECACHE_URLS = [
     './app.js',
     './manifest.json',
     './icon-512.png',
+    './lib/pdf.min.mjs',
+    './lib/pdf.worker.min.mjs',
     './Sholawat 40.pdf',
     './Jumat.pdf',
     './Sabtu.pdf',
@@ -22,25 +24,26 @@ const PRECACHE_URLS = [
     './Kamis.pdf',
 ];
 
-// External resources to cache on first use
-const CDN_URLS = [
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs',
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.mjs',
-];
-
-// Install: precache all local files
+// Install: precache all local files (app shell, PDF.js library, and all PDF files)
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('[SW] Precaching app shell and PDFs');
-                return cache.addAll(PRECACHE_URLS);
+            .then(async (cache) => {
+                console.log('[SW] Precaching app shell, PDF.js, and PDF books');
+                // Use Promise.allSettled so if one file fails, the rest are still cached
+                return Promise.allSettled(
+                    PRECACHE_URLS.map(url => 
+                        cache.add(url).catch(err => {
+                            console.warn(`[SW] Precache failed for ${url}:`, err);
+                        })
+                    )
+                );
             })
             .then(() => self.skipWaiting())
     );
 });
 
-// Activate: clean up old caches
+// Activate: clean up old caches immediately
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then(keys => {
@@ -53,54 +56,35 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch: cache-first for local, network-first for CDN
+// Fetch: cache-first for everything local, stale-while-revalidate for fonts
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
-    
-    // For CDN resources (PDF.js): try cache first, then network
-    if (url.hostname === 'cdnjs.cloudflare.com') {
-        event.respondWith(
-            caches.match(event.request).then(cached => {
-                if (cached) return cached;
-                
-                return fetch(event.request).then(response => {
-                    if (response.ok) {
-                        const clone = response.clone();
-                        caches.open(CACHE_NAME).then(cache => {
-                            cache.put(event.request, clone);
-                        });
-                    }
-                    return response;
-                });
-            })
-        );
-        return;
-    }
-    
-    // For Google Fonts: stale-while-revalidate
+
+    // Google Fonts: Stale-while-revalidate (cache first, update in background if online)
     if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
         event.respondWith(
             caches.match(event.request).then(cached => {
                 const fetchPromise = fetch(event.request).then(response => {
                     if (response.ok) {
                         const clone = response.clone();
-                        caches.open(CACHE_NAME).then(cache => {
-                            cache.put(event.request, clone);
-                        });
+                        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
                     }
                     return response;
                 }).catch(() => cached);
-                
+
                 return cached || fetchPromise;
             })
         );
         return;
     }
-    
-    // For local resources: cache-first
+
+    // All local assets & PDFs: Cache-first (instant offline load)
     event.respondWith(
         caches.match(event.request).then(cached => {
-            return cached || fetch(event.request).then(response => {
+            if (cached) {
+                return cached;
+            }
+            return fetch(event.request).then(response => {
                 if (response.ok && url.origin === self.location.origin) {
                     const clone = response.clone();
                     caches.open(CACHE_NAME).then(cache => {
