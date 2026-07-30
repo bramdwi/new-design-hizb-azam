@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Buku Saku Amalan Harian - Mukhtashar Al-Hizbul A'zham & Sholawat 40. Baca hizb harian dan sholawat secara offline.">
+    <meta name="theme-color" content="#1a3a2a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hizb A'zham">
+    
+    <title>Mukhtashar Al-Hizbul A'zham & Sholawat 40</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header id="app-header">
+        <button id="hamburger-btn" class="header-btn" aria-label="Buka menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+        <div class="header-text">
+            <span class="header-subtitle">BUKU SAKU AMALAN HARIAN</span>
+            <span class="header-title">Mukhtashar Al-Hizbul A'zham</span>
+        </div>
+        <!-- Back button for reader view -->
+        <button id="back-btn" class="header-btn hidden" aria-label="Kembali">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+        </button>
+        <span id="reader-title" class="header-title hidden"></span>
+    </header>
+
+    <!-- ========== SIDEBAR OVERLAY ========== -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- ========== SIDEBAR (DAFTAR ISI) ========== -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-icon">✦</div>
+            <button id="sidebar-close" class="sidebar-close" aria-label="Tutup menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <h2 class="sidebar-title">Daftar Isi</h2>
+        <p class="sidebar-desc">Ketuk bagian untuk membuka</p>
+        
+        <nav id="toc-list" class="toc-list">
+            <button class="toc-item" data-pdf="Sholawat 40.pdf" data-label="—" data-name="Sholawat 40">
+                <span class="toc-badge">—</span>
+                <span class="toc-text">Sholawat 40</span>
+            </button>
+            <button class="toc-item" data-pdf="Jumat.pdf" data-label="Ju" data-name="Hizb Pertama — Hari Jumat">
+                <span class="toc-badge badge-ju">Ju</span>
+                <span class="toc-text">Hizb Pertama — Hari Jumat</span>
+            </button>
+            <button class="toc-item" data-pdf="Sabtu.pdf" data-label="Sa" data-name="Hizb Kedua — Hari Sabtu">
+                <span class="toc-badge badge-sa">Sa</span>
+                <span class="toc-text">Hizb Kedua — Hari Sabtu</span>
+            </button>
+            <button class="toc-item" data-pdf="Ahad.pdf" data-label="Ah" data-name="Hizb Ketiga — Hari Ahad">
+                <span class="toc-badge badge-ah">Ah</span>
+                <span class="toc-text">Hizb Ketiga — Hari Ahad</span>
+            </button>
+            <button class="toc-item" data-pdf="Senin.pdf" data-label="Se" data-name="Hizb Keempat — Hari Senin">
+                <span class="toc-badge badge-se">Se</span>
+                <span class="toc-text">Hizb Keempat — Hari Senin</span>
+            </button>
+            <button class="toc-item" data-pdf="Selasa.pdf" data-label="Se" data-name="Hizb Kelima — Hari Selasa">
+                <span class="toc-badge badge-sl">Se</span>
+                <span class="toc-text">Hizb Kelima — Hari Selasa</span>
+            </button>
+            <button class="toc-item" data-pdf="Rabu.pdf" data-label="Ra" data-name="Hizb Keenam — Hari Rabu">
+                <span class="toc-badge badge-ra">Ra</span>
+                <span class="toc-text">Hizb Keenam — Hari Rabu</span>
+            </button>
+            <button class="toc-item" data-pdf="Kamis.pdf" data-label="Ka" data-name="Hizb Ketujuh — Hari Kamis">
+                <span class="toc-badge badge-ka">Ka</span>
+                <span class="toc-text">Hizb Ketujuh — Hari Kamis</span>
+            </button>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="install-prompt" id="install-prompt">
+                <span class="install-icon">📱</span>
+                <span>Pasang sebagai aplikasi</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="main-content">
+        
+        <!-- ===== VIEW: BERANDA (HOME) ===== -->
+        <section id="view-home" class="view active">
+            <div class="hero">
+                <span class="hero-subtitle">BUKU SAKU AMALAN HARIAN</span>
+                <h1 class="hero-title">Mukhtashar Al-Hizbul A'zham &amp; Sholawat 40</h1>
+            </div>
+
+            <!-- Lanjutkan Membaca -->
+            <div id="resume-card" class="resume-card hidden">
+                <div class="resume-content">
+                    <span class="resume-icon">✦</span>
+                    <div class="resume-text">
+                        <strong>Lanjutkan membaca</strong>
+                        <span id="resume-detail"></span>
+                    </div>
+                </div>
+                <svg class="resume-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+
+            <!-- Grid Cards -->
+            <div class="day-grid">
+                <button class="day-card" data-pdf="Jumat.pdf" data-name="Hizb Pertama — Hari Jumat" id="card-jumat">
+                    <span class="day-label label-jumat">Hari Jumat</span>
+                    <span class="day-name">Hari Jumat</span>
+                </button>
+                <button class="day-card" data-pdf="Sabtu.pdf" data-name="Hizb Kedua — Hari Sabtu" id="card-sabtu">
+                    <span class="day-label label-sabtu">Hari Sabtu</span>
+                    <span class="day-name">Hari Sabtu</span>
+                </button>
+                <button class="day-card" data-pdf="Ahad.pdf" data-name="Hizb Ketiga — Hari Ahad" id="card-ahad">
+                    <span class="day-label label-ahad">Hari Ahad</span>
+                    <span class="day-name">Hari Ahad</span>
+                </button>
+                <button class="day-card" data-pdf="Senin.pdf" data-name="Hizb Keempat — Hari Senin" id="card-senin">
+                    <span class="day-label label-senin">Hari Senin</span>
+                    <span class="day-name">Hari Senin</span>
+                </button>
+                <button class="day-card" data-pdf="Selasa.pdf" data-name="Hizb Kelima — Hari Selasa" id="card-selasa">
+                    <span class="day-label label-selasa">Hari Selasa</span>
+                    <span class="day-name">Hari Selasa</span>
+                </button>
+                <button class="day-card" data-pdf="Rabu.pdf" data-name="Hizb Keenam — Hari Rabu" id="card-rabu">
+                    <span class="day-label label-rabu">Hari Rabu</span>
+                    <span class="day-name">Hari Rabu</span>
+                </button>
+                <button class="day-card" data-pdf="Kamis.pdf" data-name="Hizb Ketujuh — Hari Kamis" id="card-kamis">
+                    <span class="day-label label-kamis">Hari Kamis</span>
+                    <span class="day-name">Hari Kamis</span>
+                </button>
+                <button class="day-card" data-pdf="Sholawat 40.pdf" data-name="Sholawat 40" id="card-sholawat">
+                    <span class="day-label label-sholawat">Sholawat 40</span>
+                    <span class="day-name">Sholawat 40</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== VIEW: BAGIAN (SECTIONS) ===== -->
+        <section id="view-sections" class="view">
+            <div class="sections-header">
+                <h2 class="sections-title">Bagian</h2>
+                <p class="sections-desc">Pilih bagian untuk mulai membaca</p>
+            </div>
+            <div class="sections-list">
+                <button class="section-item" data-pdf="Sholawat 40.pdf" data-name="Sholawat 40">
+                    <div class="section-icon">📿</div>
+                    <div class="section-info">
+                        <span class="section-name">Sholawat 40</span>
+                        <span class="section-meta">Sholawat Nabi ﷺ</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Jumat.pdf" data-name="Hizb Pertama — Hari Jumat">
+                    <div class="section-icon">🕌</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Pertama</span>
+                        <span class="section-meta">Hari Jumat</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Sabtu.pdf" data-name="Hizb Kedua — Hari Sabtu">
+                    <div class="section-icon">🌙</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Kedua</span>
+                        <span class="section-meta">Hari Sabtu</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Ahad.pdf" data-name="Hizb Ketiga — Hari Ahad">
+                    <div class="section-icon">⭐</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Ketiga</span>
+                        <span class="section-meta">Hari Ahad</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Senin.pdf" data-name="Hizb Keempat — Hari Senin">
+                    <div class="section-icon">📖</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Keempat</span>
+                        <span class="section-meta">Hari Senin</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Selasa.pdf" data-name="Hizb Kelima — Hari Selasa">
+                    <div class="section-icon">🤲</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Kelima</span>
+                        <span class="section-meta">Hari Selasa</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Rabu.pdf" data-name="Hizb Keenam — Hari Rabu">
+                    <div class="section-icon">🕋</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Keenam</span>
+                        <span class="section-meta">Hari Rabu</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="section-item" data-pdf="Kamis.pdf" data-name="Hizb Ketujuh — Hari Kamis">
+                    <div class="section-icon">📿</div>
+                    <div class="section-info">
+                        <span class="section-name">Hizb Ketujuh</span>
+                        <span class="section-meta">Hari Kamis</span>
+                    </div>
+                    <svg class="section-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== VIEW: BACA (PDF READER) ===== -->
+        <section id="view-reader" class="view">
+            <!-- Loading Spinner -->
+            <div id="reader-loading" class="reader-loading hidden">
+                <div class="spinner"></div>
+                <p>Memuat halaman...</p>
+            </div>
+            
+            <!-- PDF Pages Container -->
+            <div id="pdf-container" class="pdf-container"></div>
+            
+            <!-- Page Indicator -->
+            <div id="page-indicator" class="page-indicator hidden">
+                <span id="page-info"></span>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== BOTTOM NAVIGATION ========== -->
+    <nav id="bottom-nav" class="bottom-nav">
+        <button class="nav-item active" data-view="home" id="nav-home">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Beranda</span>
+        </button>
+        <button class="nav-item" data-view="sections" id="nav-sections">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span>Bagian</span>
+        </button>
+        <button class="nav-item" data-view="reader" id="nav-reader">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            <span>Baca</span>
+        </button>
+    </nav>
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>

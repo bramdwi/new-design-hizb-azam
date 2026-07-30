@@ -1,0 +1,21 @@
+{
+    "name": "Mukhtashar Al-Hizbul A'zham & Sholawat 40",
+    "short_name": "Hizb A'zham",
+    "description": "Buku Saku Amalan Harian - Mukhtashar Al-Hizbul A'zham & Sholawat 40",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#1a3a2a",
+    "background_color": "#0d1a12",
+    "lang": "id",
+    "categories": ["books", "education", "lifestyle"],
+    "icons": [
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
