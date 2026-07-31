@@ -437,15 +437,6 @@ resumeCard.addEventListener('click', () => {
 
 // --- Card & TOC Click Handlers ---
 
-// Day cards on home
-$$('.day-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const pdfFile = card.dataset.pdf;
-        const pdfName = card.dataset.name;
-        openPDF(pdfFile, pdfName);
-        closeSidebar();
-    });
-});
 
 // TOC items in sidebar
 $$('.toc-item').forEach(item => {

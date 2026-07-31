@@ -483,69 +483,231 @@ body.reader-mode #back-btn {
     flex-shrink: 0;
 }
 
-/* Day Grid */
-.day-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 0 16px 24px;
-}
-
-.day-card {
-    background: var(--cream-light);
-    border-radius: var(--radius-lg);
-    padding: 20px 16px;
+/* ==========================================
+   INTRO SECTION (Beranda Content)
+   ========================================== */
+.intro-section {
+    padding: 0 16px calc(32px + var(--bottom-nav-height) + var(--safe-bottom));
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    position: relative;
-    overflow: hidden;
-    text-align: left;
+    gap: 16px;
 }
 
-.day-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    opacity: 0;
-    transition: opacity var(--transition-fast);
+/* --- Intro Cards --- */
+.intro-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+    padding: 28px 22px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: center;
 }
 
-.day-card:active {
-    transform: scale(0.96);
+.intro-card--main {
+    text-align: center;
+    background: linear-gradient(165deg, rgba(22, 46, 92, 0.5) 0%, rgba(11, 19, 38, 0.6) 100%);
+    border-color: rgba(196, 155, 60, 0.15);
 }
 
-.day-card:active::before {
-    opacity: 1;
+.intro-card__ornament {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    line-height: 1;
+    color: var(--gold);
 }
 
-.day-label {
+.intro-card__title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--cream);
+    margin-bottom: 4px;
+    line-height: 1.35;
+}
+
+.intro-card__subtitle {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.intro-card__divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+}
+
+.intro-card--doa .intro-card__divider,
+.intro-card--hadits .intro-card__divider {
+    margin: 0 0 16px;
+}
+
+.intro-card__body {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.75;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.intro-card__body:last-of-type {
+    margin-bottom: 0;
+}
+
+.intro-card__body--highlight {
+    color: var(--gold-light);
+    font-weight: 600;
+    font-style: italic;
+    text-align: center;
+    padding: 14px 16px;
+    background: rgba(196, 155, 60, 0.06);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(196, 155, 60, 0.12);
+    margin-top: 12px;
+}
+
+.intro-card__body em {
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+}
+
+.intro-card__author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.intro-card__author-label {
     font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
 }
 
-.day-name {
+.intro-card__author-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+/* --- Doa & Hadits Cards --- */
+.intro-card--doa,
+.intro-card--hadits {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.intro-card__icon {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.intro-card__heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+}
+
+/* --- Verse (Ayat) Block --- */
+.verse-block {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.verse-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.verse-block__text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.verse-block__ayat {
+    font-size: 0.92rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.7;
+    padding: 12px 16px;
+    margin: 0 0 8px 0;
+    border: 1px solid rgba(196, 155, 60, 0.15);
+    background: rgba(196, 155, 60, 0.05);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.verse-block__ref {
+    display: block;
+    font-size: 0.78rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+/* --- Hadits Block --- */
+.hadits-block {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hadits-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.hadits-block__rawi {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.hadits-block__rawi em {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hadits-block__matan {
     font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-dark);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    padding: 12px 16px;
+    margin: 0 0 8px 0;
+    border: 1px solid rgba(43, 92, 172, 0.2);
+    background: rgba(43, 92, 172, 0.08);
+    border-radius: var(--radius-md);
+    text-align: center;
 }
 
-/* Label colors */
-.label-jumat { color: #b8860b; }
-.label-sabtu { color: #8b4513; }
-.label-ahad { color: #2e8b57; }
-.label-senin { color: #4682b4; }
-.label-selasa { color: #6a5acd; }
-.label-rabu { color: #cd5c5c; }
-.label-kamis { color: #d2691e; }
-.label-sholawat { color: var(--gold-dark); }
+.hadits-block__note {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    text-align: center;
+}
 
 /* ==========================================
    SECTIONS VIEW
