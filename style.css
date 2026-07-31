@@ -1,15 +1,23 @@
 /* ============================================
-   PWA Hizb Al-A'zham — Premium Dark Green Theme
+   PWA Hizb Al-A'zham — Premium Royal Blue Theme
    ============================================ */
 
 /* --- CSS Variables --- */
 :root {
-    --green-darkest: #0d1a12;
-    --green-dark: #142118;
-    --green-deep: #1a3a2a;
-    --green-mid: #2d5a3d;
-    --green-light: #3d7a52;
-    --green-subtle: #4a9463;
+    --blue-darkest: #0b1326;
+    --blue-dark: #101c36;
+    --blue-deep: #162e5c;
+    --blue-mid: #1d4482;
+    --blue-light: #2b5cac;
+    --blue-subtle: #3b72c9;
+    
+    /* Mapped variables for full compatibility */
+    --green-darkest: var(--blue-darkest);
+    --green-dark: var(--blue-dark);
+    --green-deep: var(--blue-deep);
+    --green-mid: var(--blue-mid);
+    --green-light: var(--blue-light);
+    --green-subtle: var(--blue-subtle);
     
     --gold: #c49b3c;
     --gold-light: #d4af5a;
@@ -276,7 +284,7 @@ body.reader-mode #back-btn {
 }
 
 .toc-item:active {
-    background: rgba(26, 58, 42, 0.08);
+    background: rgba(22, 46, 92, 0.08);
 }
 
 .toc-badge {
@@ -289,7 +297,7 @@ body.reader-mode #back-btn {
     font-size: 0.75rem;
     font-weight: 700;
     color: var(--green-deep);
-    background: rgba(26, 58, 42, 0.08);
+    background: rgba(22, 46, 92, 0.08);
     flex-shrink: 0;
 }
 
