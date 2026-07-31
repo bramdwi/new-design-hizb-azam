@@ -544,7 +544,7 @@ body.reader-mode #back-btn {
 
 .intro-card--doa .intro-card__divider,
 .intro-card--hadits .intro-card__divider {
-    margin: 0 0 16px;
+    margin: 0 auto 16px;
 }
 
 .intro-card__body {
