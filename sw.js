@@ -3,7 +3,7 @@
    Cache-first strategy for 100% offline reading
    ============================================ */
 
-const CACHE_NAME = 'hizb-azam-v7';
+const CACHE_NAME = 'hizb-azam-v8';
 
 const PRECACHE_URLS = [
     './',

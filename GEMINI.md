@@ -71,7 +71,7 @@ Navigation is handled by a **bottom tab bar** (`#bottom-nav`) and a **hamburger 
 - **Install:** Precaches all app files + all 8 PDFs + PDF.js library
 - **Fetch:** Cache-first for same-origin requests; network-first with cache fallback for external (Google Fonts)
 - **Activate:** Deletes old cache versions automatically
-- **Cache name:** `hizb-azam-v7` — **bump this when making changes** to force cache refresh
+- **Cache name:** `hizb-azam-v8` — **bump this when making changes** to force cache refresh
 
 ### State Management
 All state is in `localStorage`:
