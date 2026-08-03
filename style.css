@@ -1,52 +1,59 @@
 /* ============================================
-   PWA Hizb Al-A'zham — Premium Royal Blue Theme
+   PWA Hizb Al-A'zham — Warm Cream & Ink Theme
    ============================================ */
 
 /* --- CSS Variables --- */
 :root {
-    --blue-darkest: #0b1326;
-    --blue-dark: #101c36;
-    --blue-deep: #162e5c;
-    --blue-mid: #1d4482;
-    --blue-light: #2b5cac;
-    --blue-subtle: #3b72c9;
-    
-    /* Mapped variables for full compatibility */
+    --cream: #FAF6EC;
+    --cream-deep: #F5EFE0;
+    --ink: #2B2016;
+    --ink-soft: #4A3B2A;
+    --gold: #B8935A;
+    --gold-deep: #967140;
+    --rubric: #8B3A2E;
+    --panel: #E8DCC4;
+    --rule: #D8C69E;
+
+    /* Legacy mapping for full compatibility */
+    --blue-darkest: var(--cream);
+    --blue-dark: var(--cream-deep);
+    --blue-deep: var(--panel);
+    --blue-mid: var(--gold);
+    --blue-light: var(--gold-deep);
+    --blue-subtle: var(--rule);
+
     --green-darkest: var(--blue-darkest);
     --green-dark: var(--blue-dark);
     --green-deep: var(--blue-deep);
     --green-mid: var(--blue-mid);
     --green-light: var(--blue-light);
     --green-subtle: var(--blue-subtle);
-    
-    --gold: #c49b3c;
-    --gold-light: #d4af5a;
-    --gold-dark: #a37f2a;
-    
-    --cream: #f5f0e6;
-    --cream-light: #faf7f0;
+
+    --gold-light: #CBB085;
+    --gold-dark: var(--gold-deep);
+
     --white: #ffffff;
-    --text-dark: #1a1a1a;
-    --text-mid: #4a4a4a;
-    --text-light: #8a8a8a;
-    
+    --text-dark: var(--ink);
+    --text-mid: var(--ink-soft);
+    --text-light: #7A6955;
+
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-arabic: 'Amiri', serif;
-    
+
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 20px;
-    
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
-    --shadow-glow: 0 0 20px rgba(196, 155, 60, 0.15);
-    
+
+    --shadow-sm: 0 1px 3px rgba(43, 32, 22, 0.08);
+    --shadow-md: 0 4px 12px rgba(43, 32, 22, 0.12);
+    --shadow-lg: 0 8px 24px rgba(43, 32, 22, 0.16);
+    --shadow-glow: 0 0 20px rgba(184, 147, 90, 0.2);
+
     --transition-fast: 200ms ease;
     --transition-mid: 300ms ease;
     --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     --header-height: 60px;
     --bottom-nav-height: 64px;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -67,8 +74,8 @@ html {
 
 body {
     font-family: var(--font-main);
-    background: var(--green-darkest);
-    color: var(--white);
+    background: var(--cream);
+    color: var(--ink);
     min-height: 100dvh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -91,7 +98,7 @@ button {
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--green-mid);
+    background: var(--rule);
     border-radius: 4px;
 }
 
@@ -109,12 +116,12 @@ button {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-dark) 100%);
+    background: linear-gradient(135deg, var(--gold-deep) 0%, #7E5D31 100%);
     display: flex;
     align-items: center;
     padding: 0 12px;
     z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid var(--rule);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -132,7 +139,7 @@ button {
 }
 
 .header-btn:active {
-    background: rgba(255,255,255,0.1);
+    background: rgba(250, 246, 236, 0.15);
 }
 
 .header-text {
@@ -146,7 +153,7 @@ button {
     font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 1.5px;
-    color: var(--gold);
+    color: var(--panel);
     text-transform: uppercase;
 }
 
@@ -184,7 +191,7 @@ body.reader-mode #back-btn {
 .sidebar-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(43, 32, 22, 0.4);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: 200;
@@ -204,7 +211,8 @@ body.reader-mode #back-btn {
     left: 0;
     width: min(85vw, 360px);
     height: 100dvh;
-    background: var(--cream-light);
+    background: var(--cream);
+    border-right: 1px solid var(--rule);
     z-index: 300;
     transform: translateX(-100%);
     transition: transform var(--transition-slow);
@@ -218,7 +226,7 @@ body.reader-mode #back-btn {
 }
 
 .sidebar-header {
-    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    background: linear-gradient(135deg, var(--gold-deep) 0%, #7E5D31 100%);
     padding: 20px 20px 16px;
     display: flex;
     justify-content: space-between;
@@ -227,7 +235,7 @@ body.reader-mode #back-btn {
 
 .sidebar-icon {
     font-size: 1.5rem;
-    color: var(--gold);
+    color: var(--cream);
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
@@ -243,26 +251,26 @@ body.reader-mode #back-btn {
     align-items: center;
     justify-content: center;
     color: var(--cream);
-    background: rgba(255,255,255,0.1);
+    background: rgba(250, 246, 236, 0.15);
     border-radius: 50%;
     transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
 .sidebar-close:active {
-    background: rgba(255,255,255,0.2);
+    background: rgba(250, 246, 236, 0.3);
     transform: scale(0.9);
 }
 
 .sidebar-title {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--ink);
     padding: 20px 20px 4px;
 }
 
 .sidebar-desc {
     font-size: 0.82rem;
-    color: var(--text-light);
+    color: var(--ink-soft);
     padding: 0 20px 12px;
 }
 
@@ -284,7 +292,7 @@ body.reader-mode #back-btn {
 }
 
 .toc-item:active {
-    background: rgba(22, 46, 92, 0.08);
+    background: var(--panel);
 }
 
 .toc-badge {
@@ -296,29 +304,30 @@ body.reader-mode #back-btn {
     border-radius: var(--radius-sm);
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--green-deep);
-    background: rgba(22, 46, 92, 0.08);
+    color: var(--gold-deep);
+    background: var(--panel);
+    border: 1px solid var(--rule);
     flex-shrink: 0;
 }
 
-.badge-ju { color: #b8860b; }
-.badge-sa { color: #8b4513; }
-.badge-ah { color: #2e8b57; }
-.badge-se { color: #4682b4; }
-.badge-sl { color: #6a5acd; }
-.badge-ra { color: #cd5c5c; }
-.badge-ka { color: #d2691e; }
+.badge-ju { color: #8B3A2E; }
+.badge-sa { color: #967140; }
+.badge-ah { color: #4A6B38; }
+.badge-se { color: #3B5A82; }
+.badge-sl { color: #6A4B7C; }
+.badge-ra { color: #8B3A2E; }
+.badge-ka { color: #967140; }
 
 .toc-text {
     font-size: 0.92rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--ink);
     line-height: 1.4;
 }
 
 .sidebar-footer {
     padding: 12px 20px calc(12px + var(--safe-bottom));
-    border-top: 1px solid rgba(0,0,0,0.06);
+    border-top: 1px solid var(--rule);
 }
 
 .install-prompt {
@@ -329,13 +338,13 @@ body.reader-mode #back-btn {
     border-radius: var(--radius-md);
     font-size: 0.82rem;
     font-weight: 500;
-    color: var(--text-mid);
+    color: var(--ink-soft);
     cursor: pointer;
     transition: background var(--transition-fast);
 }
 
 .install-prompt:hover {
-    background: rgba(0,0,0,0.04);
+    background: var(--cream-deep);
 }
 
 .install-icon {
@@ -373,7 +382,8 @@ body.reader-mode #back-btn {
 .hero {
     text-align: center;
     padding: 40px 24px 28px;
-    background: linear-gradient(180deg, var(--green-deep) 0%, var(--green-darkest) 100%);
+    background: linear-gradient(180deg, var(--cream-deep) 0%, var(--cream) 100%);
+    border-bottom: 1px solid var(--rule);
     position: relative;
     overflow: hidden;
 }
@@ -385,7 +395,7 @@ body.reader-mode #back-btn {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at center, rgba(196, 155, 60, 0.04) 0%, transparent 60%);
+    background: radial-gradient(circle at center, rgba(184, 147, 90, 0.08) 0%, transparent 60%);
     animation: hero-glow 6s ease-in-out infinite;
 }
 
@@ -398,7 +408,7 @@ body.reader-mode #back-btn {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 2.5px;
-    color: var(--gold);
+    color: var(--gold-deep);
     text-transform: uppercase;
     margin-bottom: 12px;
     display: block;
@@ -409,7 +419,7 @@ body.reader-mode #back-btn {
     font-size: 1.75rem;
     font-weight: 800;
     line-height: 1.3;
-    color: var(--cream);
+    color: var(--ink);
     max-width: 320px;
     margin: 0 auto;
     position: relative;
@@ -419,7 +429,8 @@ body.reader-mode #back-btn {
 .resume-card {
     margin: -12px 16px 20px;
     padding: 16px 18px;
-    background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+    background: linear-gradient(135deg, var(--panel), var(--cream-deep));
+    border: 1px solid var(--rule);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -427,7 +438,7 @@ body.reader-mode #back-btn {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -436,7 +447,7 @@ body.reader-mode #back-btn {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--rule);
     pointer-events: none;
 }
 
@@ -453,7 +464,7 @@ body.reader-mode #back-btn {
 
 .resume-icon {
     font-size: 1.2rem;
-    color: var(--gold);
+    color: var(--gold-deep);
     flex-shrink: 0;
 }
 
@@ -467,19 +478,19 @@ body.reader-mode #back-btn {
 .resume-text strong {
     font-size: 0.92rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--ink);
 }
 
 .resume-text span {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.65);
+    color: var(--ink-soft);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .resume-arrow {
-    color: rgba(255,255,255,0.5);
+    color: var(--gold-deep);
     flex-shrink: 0;
 }
 
@@ -495,19 +506,18 @@ body.reader-mode #back-btn {
 
 /* --- Intro Cards --- */
 .intro-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--cream-deep);
+    border: 1px solid var(--rule);
     border-radius: var(--radius-xl);
     padding: 28px 22px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-sm);
     text-align: center;
 }
 
 .intro-card--main {
     text-align: center;
-    background: linear-gradient(165deg, rgba(22, 46, 92, 0.5) 0%, rgba(11, 19, 38, 0.6) 100%);
-    border-color: rgba(196, 155, 60, 0.15);
+    background: linear-gradient(165deg, var(--panel) 0%, var(--cream-deep) 100%);
+    border-color: var(--rule);
 }
 
 .intro-card__ornament {
@@ -520,14 +530,14 @@ body.reader-mode #back-btn {
 .intro-card__title {
     font-size: 1.3rem;
     font-weight: 800;
-    color: var(--cream);
+    color: var(--ink);
     margin-bottom: 4px;
     line-height: 1.35;
 }
 
 .intro-card__subtitle {
     font-size: 0.82rem;
-    color: var(--gold);
+    color: var(--gold-deep);
     font-weight: 500;
     font-style: italic;
     margin-bottom: 16px;
@@ -549,7 +559,7 @@ body.reader-mode #back-btn {
 
 .intro-card__body {
     font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--ink);
     line-height: 1.75;
     margin-bottom: 10px;
     text-align: center;
@@ -560,19 +570,19 @@ body.reader-mode #back-btn {
 }
 
 .intro-card__body--highlight {
-    color: var(--gold-light);
+    color: var(--ink-soft);
     font-weight: 600;
     font-style: italic;
     text-align: center;
     padding: 14px 16px;
-    background: rgba(196, 155, 60, 0.06);
+    background: var(--panel);
     border-radius: var(--radius-md);
-    border: 1px solid rgba(196, 155, 60, 0.12);
+    border: 1px solid var(--rule);
     margin-top: 12px;
 }
 
 .intro-card__body em {
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--ink-soft);
     font-style: italic;
 }
 
@@ -583,7 +593,7 @@ body.reader-mode #back-btn {
     gap: 2px;
     margin-top: 20px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--rule);
 }
 
 .intro-card__author-label {
@@ -591,19 +601,19 @@ body.reader-mode #back-btn {
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--ink-soft);
 }
 
 .intro-card__author-name {
     font-size: 0.92rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--gold-deep);
 }
 
 /* --- Doa & Hadits Cards --- */
 .intro-card--doa,
 .intro-card--hadits {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--cream-deep);
 }
 
 .intro-card__icon {
@@ -614,7 +624,7 @@ body.reader-mode #back-btn {
 .intro-card__heading {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--ink);
     margin-bottom: 4px;
 }
 
@@ -622,7 +632,7 @@ body.reader-mode #back-btn {
 .verse-block {
     margin-bottom: 18px;
     padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--rule);
 }
 
 .verse-block:last-child {
@@ -633,7 +643,7 @@ body.reader-mode #back-btn {
 
 .verse-block__text {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--ink-soft);
     margin-bottom: 8px;
     line-height: 1.6;
     text-align: center;
@@ -643,12 +653,12 @@ body.reader-mode #back-btn {
     font-size: 0.92rem;
     font-style: italic;
     font-weight: 500;
-    color: var(--cream);
+    color: var(--ink);
     line-height: 1.7;
     padding: 12px 16px;
     margin: 0 0 8px 0;
-    border: 1px solid rgba(196, 155, 60, 0.15);
-    background: rgba(196, 155, 60, 0.05);
+    border: 1px solid var(--rule);
+    background: var(--panel);
     border-radius: var(--radius-md);
     text-align: center;
 }
@@ -658,7 +668,7 @@ body.reader-mode #back-btn {
     font-size: 0.78rem;
     font-style: normal;
     font-weight: 600;
-    color: var(--gold);
+    color: var(--rubric);
     letter-spacing: 0.3px;
     text-align: center;
 }
@@ -667,7 +677,7 @@ body.reader-mode #back-btn {
 .hadits-block {
     margin-bottom: 18px;
     padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--rule);
 }
 
 .hadits-block:last-child {
@@ -678,33 +688,33 @@ body.reader-mode #back-btn {
 
 .hadits-block__rawi {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--ink-soft);
     margin-bottom: 8px;
     line-height: 1.6;
     text-align: center;
 }
 
 .hadits-block__rawi em {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--ink-soft);
 }
 
 .hadits-block__matan {
     font-size: 0.95rem;
     font-weight: 600;
     font-style: italic;
-    color: var(--cream);
+    color: var(--ink);
     line-height: 1.6;
     padding: 12px 16px;
     margin: 0 0 8px 0;
-    border: 1px solid rgba(43, 92, 172, 0.2);
-    background: rgba(43, 92, 172, 0.08);
+    border: 1px solid var(--rule);
+    background: var(--panel);
     border-radius: var(--radius-md);
     text-align: center;
 }
 
 .hadits-block__note {
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--rubric);
     line-height: 1.6;
     text-align: center;
 }
@@ -719,12 +729,12 @@ body.reader-mode #back-btn {
 .sections-title {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--cream);
+    color: var(--ink);
 }
 
 .sections-desc {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.5);
+    color: var(--ink-soft);
     margin-top: 4px;
 }
 
@@ -739,16 +749,15 @@ body.reader-mode #back-btn {
     width: 100%;
     padding: 16px 12px;
     border-radius: var(--radius-md);
-    transition: background var(--transition-fast);
+    background: var(--cream-deep);
+    border: 1px solid var(--rule);
+    margin-bottom: 8px;
+    transition: background var(--transition-fast), transform var(--transition-fast);
     text-align: left;
 }
 
 .section-item:active {
-    background: rgba(255,255,255,0.05);
-}
-
-.section-item + .section-item {
-    border-top: 1px solid rgba(255,255,255,0.04);
+    background: var(--panel);
 }
 
 .section-icon {
@@ -757,9 +766,11 @@ body.reader-mode #back-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.06);
+    background: var(--panel);
+    border: 1px solid var(--rule);
     border-radius: var(--radius-md);
     font-size: 1.25rem;
+    color: var(--gold-deep);
     flex-shrink: 0;
 }
 
@@ -774,16 +785,16 @@ body.reader-mode #back-btn {
 .section-name {
     font-size: 0.95rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--ink);
 }
 
 .section-meta {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.45);
+    color: var(--ink-soft);
 }
 
 .section-arrow {
-    color: rgba(255,255,255,0.3);
+    color: var(--gold-deep);
     flex-shrink: 0;
 }
 
@@ -797,6 +808,7 @@ body.reader-mode #back-btn {
     gap: 4px;
     padding: 8px 0;
     min-height: calc(100dvh - var(--header-height) - var(--bottom-nav-height));
+    background: var(--cream);
 }
 
 .pdf-container canvas {
@@ -813,7 +825,7 @@ body.reader-mode #back-btn {
     justify-content: center;
     gap: 16px;
     padding: 60px 20px;
-    color: rgba(255,255,255,0.6);
+    color: var(--ink-soft);
 }
 
 .reader-loading.hidden {
@@ -823,8 +835,8 @@ body.reader-mode #back-btn {
 .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(255,255,255,0.1);
-    border-top-color: var(--gold);
+    border: 3px solid var(--rule);
+    border-top-color: var(--gold-deep);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -844,10 +856,9 @@ body.reader-mode #back-btn {
     bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 16px);
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: var(--ink);
     color: var(--cream);
+    border: 1px solid var(--gold);
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -879,19 +890,19 @@ body.reader-mode #back-btn {
 
 .reader-empty-text {
     font-size: 0.95rem;
-    color: rgba(255,255,255,0.4);
+    color: var(--ink-soft);
     font-weight: 500;
 }
 
 .reader-empty-hint {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.25);
+    color: var(--ink-soft);
 }
 
 .retry-btn {
     margin-top: 8px;
     padding: 10px 28px;
-    background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+    background: linear-gradient(135deg, var(--gold-deep), var(--gold));
     color: var(--cream);
     border: none;
     border-radius: var(--radius-md);
@@ -916,8 +927,8 @@ body.reader-mode #back-btn {
     right: 0;
     height: calc(var(--bottom-nav-height) + var(--safe-bottom));
     padding-bottom: var(--safe-bottom);
-    background: linear-gradient(180deg, var(--green-dark) 0%, var(--green-darkest) 100%);
-    border-top: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, var(--cream-deep) 0%, var(--panel) 100%);
+    border-top: 1px solid var(--rule);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -930,7 +941,7 @@ body.reader-mode #back-btn {
     align-items: center;
     gap: 3px;
     padding: 8px 16px;
-    color: rgba(255,255,255,0.35);
+    color: var(--ink-soft);
     transition: color var(--transition-fast);
     position: relative;
 }
@@ -941,7 +952,7 @@ body.reader-mode #back-btn {
 }
 
 .nav-item.active {
-    color: var(--gold);
+    color: var(--gold-deep);
 }
 
 .nav-item.active::before {
@@ -952,12 +963,12 @@ body.reader-mode #back-btn {
     transform: translateX(-50%);
     width: 24px;
     height: 2px;
-    background: var(--gold);
+    background: var(--gold-deep);
     border-radius: 2px;
 }
 
 .nav-item:active {
-    color: var(--gold-light);
+    color: var(--rubric);
 }
 
 /* ==========================================
@@ -1015,13 +1026,6 @@ body.reader-mode #back-btn {
         font-size: 2.5rem;
         max-width: 500px;
     }
-}
-
-/* ==========================================
-   DARK MODE ADJUSTMENTS (system preference)
-   ========================================== */
-@media (prefers-color-scheme: light) {
-    /* The app is designed dark-first, no light mode override needed */
 }
 
 /* Reduce motion */

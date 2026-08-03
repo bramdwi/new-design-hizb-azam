@@ -11,7 +11,7 @@ The book is divided into **7 daily hizb** (one per day of the week: Jumat throug
 - Installable as a native-like app on Android and iOS
 - Hamburger menu sidebar with table of contents
 - Resume reading from last position (localStorage)
-- Royal blue + gold Islamic-themed design
+- Warm cream & ink Islamic-themed design (based on warna.md)
 - Mobile-first, responsive layout
 
 **Live URL:** Deployed via GitHub Pages from `https://github.com/bramdwi/amalan-harian.git`
@@ -82,25 +82,20 @@ All state is in `localStorage`:
 
 ## Design System
 
-### Color Palette (Royal Blue Theme)
-Originally green, migrated to blue to match the PDF content's aesthetic.
+### Color Palette (Warm Cream & Ink Theme)
+Theme updated according to `warna.md` to replicate classic Islamic manuscript paper tone and ink rubrics.
 
 ```css
---blue-darkest: #0b1326;   /* Body background */
---blue-dark:    #101c36;    /* Cards, surfaces */
---blue-deep:    #162e5c;    /* Header, sidebar */
---blue-mid:     #1d4482;    /* Accents */
---blue-light:   #2b5cac;    /* Active states */
---blue-subtle:  #3b72c9;    /* Hover states */
-
---gold:         #c49b3c;    /* Primary accent (ornaments, highlights) */
---gold-light:   #d4af5a;    /* Emphasis text */
---gold-dark:    #a37f2a;    /* Muted gold */
-
---cream:        #f5f0e6;    /* Primary text color */
+--cream:      #FAF6EC;   /* Latar halaman */
+--cream-deep: #F5EFE0;   /* Variasi latar */
+--ink:        #2B2016;   /* Teks utama */
+--ink-soft:   #4A3B2A;   /* Teks sekunder (faedah) */
+--gold:       #B8935A;   /* Aksen, garis, nomor doa */
+--gold-deep:  #967140;   /* Aksen gelap, label italic */
+--rubric:     #8B3A2E;   /* Referensi hadis (rubrikasi merah) */
+--panel:      #E8DCC4;   /* Latar kotak faedah/catatan */
+--rule:       #D8C69E;   /* Garis pembatas tipis */
 ```
-
-> **Note:** The `--green-*` variables still exist as aliases to `--blue-*` for backward compatibility. They can be removed safely if no references remain.
 
 ### Typography
 - **Main font:** `Inter` (Google Fonts) with system font fallbacks
@@ -122,7 +117,7 @@ Originally green, migrated to blue to match the PDF content's aesthetic.
 1. **PDF.js moved from CDN to local** (`lib/`) — eliminates network dependency, enables true offline
 2. **Full ArrayBuffer download before render** — fixes "Bad end offset" errors from partial PDF streams
 3. **Auto-retry (3x) with progressive delay** — handles flaky connections gracefully
-4. **Theme changed from green to royal blue** — to match the book's PDF border/frame colors
+4. **Theme updated to Warm Cream & Ink manuscript palette** — based on `warna.md`
 5. **Beranda redesigned** — removed day-card grid, replaced with book summary (Ringkasan Al-Hizb Al-A'zam), Hakikat Doa (Quran verses), and Hadits tentang Doa sections
 6. **All beranda text is center-aligned** — per owner's preference
 7. **No icons on Hakikat Doa and Hadits cards** — owner prefers clean text-only cards
