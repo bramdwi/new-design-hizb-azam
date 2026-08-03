@@ -24,7 +24,7 @@ async function initPDFJS() {
 
 // --- Data ---
 const SECTIONS = [
-    { pdf: 'Sholawat 40.pdf', name: 'Sholawat 40', label: '—', day: null },
+    { pdf: 'sholawat-40.pdf', name: 'Sholawat 40', label: '—', day: null },
     { pdf: 'Jumat.pdf', name: 'Hizb Pertama — Hari Jumat', label: 'Ju', day: 5 },
     { pdf: 'Sabtu.pdf', name: 'Hizb Kedua — Hari Sabtu', label: 'Sa', day: 6 },
     { pdf: 'Ahad.pdf', name: 'Hizb Ketiga — Hari Ahad', label: 'Ah', day: 0 },
