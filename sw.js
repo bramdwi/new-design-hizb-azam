@@ -3,7 +3,7 @@
    Cache-first strategy for 100% offline reading
    ============================================ */
 
-const CACHE_NAME = 'hizb-azam-v15';
+const CACHE_NAME = 'hizb-azam-v16';
 
 const PRECACHE_URLS = [
     './',
@@ -14,7 +14,7 @@ const PRECACHE_URLS = [
     './icon-512.png',
     './lib/pdf.min.mjs',
     './lib/pdf.worker.min.mjs',
-    './sholawat-40.pdf',
+    './Sholawat 40.pdf',
     './Jumat.pdf',
     './Sabtu.pdf',
     './Ahad.pdf',
