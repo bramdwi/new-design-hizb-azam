@@ -521,17 +521,10 @@ body.reader-mode #back-btn {
 }
 
 .intro-card__ornament {
-    font-family: var(--font-arabic);
-    font-size: 2.1rem;
+    font-size: 1.8rem;
     margin-bottom: 12px;
     line-height: 1;
     color: var(--gold);
-}
-
-.arabic, [lang="ar"] {
-    font-family: var(--font-arabic);
-    font-size: 1.25rem;
-    line-height: 1.8;
 }
 
 .intro-card__title {
